@@ -38,14 +38,12 @@
             }
 
             .form-wrap {
+                padding-top: 15px;
                 width: fit-content;
                 margin-left: 50%;
                 transform: translateX(-50%);
             }
 
-            select {
-                margin-top: 20px;
-            }
 
             select,
             #Email,
