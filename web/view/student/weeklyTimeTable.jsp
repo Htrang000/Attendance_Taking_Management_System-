@@ -151,30 +151,34 @@
                 <td class="date">
                 </td>
             </tr>
-                <c:forEach begin="1" end="6" varStatus="slot">
-                    <tr>
-                        <c:forEach begin="0" end="6" varStatus="day">
-                            <c:forEach items="${requestScope.listLesson}" var="l">
-                                <c:choose>
-                                    <c:when test="${l.slot.slotId eq slot.index && l.date.getDay() eq day.index}">
-                                        <td>
-                                            <div>
-                                                ${l.group.course.courseName} - ${l.group.groupName}<br>
-                                                at ${l.group.room.roomName} <br>
-                                                <span style="color: ${l.attendanceStatus eq 2 ? 'green' : 'red'};">
-                                                    ${l.attendanceStatus eq 1 ? 'Absent' : (l.attendanceStatus eq 2 ? 'Present' : 'Not given')}
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td></td>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </c:forEach>
-                    </tr>
+            <%--<c:forEach begin="1" end="6" varStatus="slot">--%>
+            <tr>
+                <td>Slot ${slot.index+1}</td>
+                <c:forEach items="${requestScope.listLesson}" var="l">
+                    <c:if test="${l.slot.slotId eq 1}">
+                        <c:forEach begin="1" end="7" varStatus="day">
+                            <c:if test="${l.date.getDay() eq day.index}">
+                                <td>
+                                    <div>
+                                        ${day.index}
+                                        ${l.group.course.courseName} - ${l.group.groupName}<br>
+                                        at ${l.room.roomName} <br>
+                                        <span style="color: ${l.attendanceStatus eq 2 ? 'green' : 'red'};">
+                                            ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
+                                        </span>
+                                    </div>
+                                </td>
+                            </c:if>
+                            <c:if test="${l.date.getDay() > current}">
+                                <td>
+                                    ${day.index}
+                                </td>
+                            </c:if>
+                        </c:forEach>   
+                    </c:if>
                 </c:forEach>
+            </tr>
+            <%--</c:forEach>--%>
             <!--            <tr>
                             <td><b>Slot5</b>
                             </td>
@@ -193,7 +197,7 @@
                             <td></td>
                         </tr>-->
         </table>
-        <script src="../../js/student/weeklyTimeTable.js" type="text/javascript"></script>
+        <!--<script src="../../js/student/weeklyTimeTable.js" type="text/javascript"></script>-->
     </body>
 
 </html>

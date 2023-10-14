@@ -26,7 +26,7 @@ public class StudentDBContext extends DBContext implements IDBContext<Student> {
 
     @Override
     public Student get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody  
     }
 
     @Override
@@ -64,5 +64,4 @@ public class StudentDBContext extends DBContext implements IDBContext<Student> {
         }
         return null;
     }
-
 }

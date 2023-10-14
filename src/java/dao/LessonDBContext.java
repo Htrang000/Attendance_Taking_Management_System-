@@ -18,6 +18,7 @@ import model.Lesson;
 import model.Room;
 import model.Student;
 import model.TimeSlot;
+import org.apache.catalina.ha.ClusterSession;
 
 /**
  *
@@ -78,6 +79,7 @@ public class LessonDBContext extends DBContext implements IDBContext<LessonDBCon
                 Group g = new Group();
                 g.setGroupName(rs.getString("Group_name"));
                 g.setCourse(course);
+                lesson.setGroup(g);
                 Room r = new Room();
                 r.setRoomName(rs.getString("Room_name"));
                 lesson.setRoom(r);
@@ -90,11 +92,4 @@ public class LessonDBContext extends DBContext implements IDBContext<LessonDBCon
         return listLesson;
     }
 
-    public static void main(String[] args) {
-        int dayOfWeek = 7; // Đặt ngày trong tuần (2 là thứ hai, ví dụ)
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-        Date date = new Date(calendar.getTimeInMillis());
-        System.out.println(date.getDay() + " " +date);
-    }
 }

@@ -29,6 +29,13 @@ public class StudentService {
     public StudentService(LessonDBContext ldb) {
         this.ldb = ldb;
     }
+
+    public StudentService(StudentDBContext stdb, LessonDBContext ldb) {
+        this.stdb = stdb;
+        this.ldb = ldb;
+    }
+    
+    
     
 
     public Student getStudentByAcc(Account acc) {

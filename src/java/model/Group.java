@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,5 @@ public class Group {
     private int groupId;
     private String groupName;
     private Course course;
+    private Set<Student> students;
 }

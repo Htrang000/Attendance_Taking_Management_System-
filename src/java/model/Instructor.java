@@ -29,6 +29,5 @@ public class Instructor {
     private String phone;
     private String email;
     private String address;
-    private Campus campus;
     private Account account;
 }

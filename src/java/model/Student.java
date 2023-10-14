@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,6 @@ public class Student {
    private String phone;
    private String email;
    private String address;
-   private Campus campus;
    private Account account;
+   private Set<Group> groups;
 }

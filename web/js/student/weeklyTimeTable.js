@@ -1,4 +1,5 @@
-
+document.addEventListener("DOMContentLoaded", function() {
+    
 const yearSelect = document.getElementById('year');
 const weekSelect = document.getElementById('week');
 const dateElements = document.querySelectorAll('.date');
@@ -84,3 +85,4 @@ yearSelect.addEventListener('change', updateContent);
 
 // Khởi đầu ban đầu
 updateContent();
+});

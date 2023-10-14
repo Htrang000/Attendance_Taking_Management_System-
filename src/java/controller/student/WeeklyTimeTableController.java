@@ -5,11 +5,13 @@
 package controller.student;
 
 import controller.authentication.BasedRequiredAuthenticationController;
+import dao.LessonDBContext;
 import dao.StudentDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import model.Account;
 import model.Lesson;
@@ -24,18 +26,27 @@ public class WeeklyTimeTableController extends BasedRequiredAuthenticationContro
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc)throws ServletException, IOException {
-        StudentDBContext sdbc = new StudentDBContext();
-        StudentService ss = new StudentService(sdbc);
+        LessonDBContext ldb = new LessonDBContext();
+        StudentDBContext stdb = new StudentDBContext();
+        StudentService ss = new StudentService(stdb, ldb);
         Account a = (Account)req.getSession().getAttribute("session");
-        System.out.println(a.getAccountID());
-        Student s = ss.getStudentByAcc(acc);
+        Student s = ss.getStudentByAcc(a);
         ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s);
         req.setAttribute("listLesson", listLesson);
-        req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
+        for (Lesson lesson : listLesson) {
+            System.out.println(lesson.getGroup().getCourse().getCourseName());
+        }
+        System.out.println(listLesson.size());
+      //  req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException{
+    }
+    
+    public static void main(String[] args) {
+        Date d = Date.valueOf("2023-10-08");
+        System.out.println(d.getDay());
     }
     
 }
