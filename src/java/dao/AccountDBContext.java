@@ -31,9 +31,9 @@ public class AccountDBContext extends DBContext implements IDBContext<Account> {
     }
 
     public Account get(String email, String password, int campusID) {
-        String sql = "SELECT Email, [Password], r.Role_id, r.Role_name, a.Campus_id FROM Account\n"
+        String sql = "SELECT a.[Account_id], Email, [Password], r.Role_id, r.Role_name, a.Campus_id FROM Account\n"
                 + "a JOIN Role r ON a.Role_id = r.Role_id\n"
-                + "JOIN Campus c ON c.Campus_id = a.Campus_id\n"
+                + "JOIN Campus c ON c.Campus_id = a.Campus_id\n"  
                 + "WHERE Email = ? AND [Password] = ? AND c.Campus_id = ?";
         try {
             PreparedStatement stm = c.prepareStatement(sql);
@@ -43,6 +43,7 @@ public class AccountDBContext extends DBContext implements IDBContext<Account> {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 Account acc = new Account();
+                acc.setAccountID(rs.getInt("Account_id"));
                 acc.setEmail(email);
                 Role role = new Role();
                 role.setRoleId(rs.getInt("Role_id"));

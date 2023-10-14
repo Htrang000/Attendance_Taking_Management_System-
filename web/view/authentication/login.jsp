@@ -112,34 +112,7 @@
             button:hover {
                 background-color: #ff8c42;
             }
-
-            .home-button {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #f27024;
-                color: white;
-                text-decoration: none;
-                /* Loại bỏ đường gạch chân mặc định cho liên kết */
-                border-radius: 5px;
-                transition: background-color 0.3s;
-                /* Hiệu ứng chuyển đổi màu nền khi di chuột qua */
-                text-align: center;
-                width: 50%;
-                color: white;
-                border-radius: 10px;
-                padding: 8px;
-                border: none;
-                margin: 15px auto;
-                display: block;
-                cursor: pointer;
-
-            }
-
         </style>
-
-
-
-
     </head>
 
 
@@ -149,24 +122,25 @@
         <div class="login">
             <img src="https://cdn.haitrieu.com/wp-content/uploads/2021/10/Logo-Dai-hoc-FPT.png" alt="fpt university">
             <h1> Attendance Taking Management System </h1>
-            <form>
+            <form action="login" method="post">
                 <div class="form-wrap">
+                    <div id="error" style="display: none;">${requestScope.error}</div>
                     <table>
                         <tr>
                             <td class="col1"><label for="Campus"><b>Select campus</b></label></td>
                             <td><select name="campus" required="">
                                     <c:forEach var="c" items="${requestScope.campuses}">
-                                        <option value="c.campusId">${c.campusName}</option>
+                                        <option value="${c.campusId}">${c.campusName}</option>
                                     </c:forEach>
                                 </select></td>
                         </tr>
                         <tr>
                             <td class="col1"><label for="Email"><b>Email address</b></label></td>
-                            <td><input type="email" id="Email" name="email" placeholder="Enter email"></td>
+                            <td><input type="email" id="Email" name="email" placeholder="Enter email" required=""></td>
                         </tr>
                         <tr>
                             <td class="col1"><label for="Password"><b>Password</b></label></td>
-                            <td><input type="password" id="Password"name="password" placeholder="Enter Password"></td>
+                            <td><input type="password" id="Password"name="password" placeholder="Enter Password" required=""></td>
                         </tr>
                     </table>
                     <div class="form-check">
@@ -174,11 +148,13 @@
                         <label for="Check"><b>Remember me</b></label>
                     </div>
                     <div class="form-submit">
-                        <!-- <button type="submit"><b>Login</b></button> -->
-                        <a href="home.html" class="home-button">Login</a>
+                        <button type="submit"><b>Login</b></button> 
                     </div>
                 </div>
             </form>
         </div>
     </body>
+    <script src="js/authentication/login.js">       
+    </script>
+        
 </html>
