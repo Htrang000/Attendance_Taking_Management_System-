@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.CookieStore;
 import java.util.ArrayList;
 import model.Account;
 import model.Campus;
@@ -45,7 +44,6 @@ public class LoginController extends HttpServlet {
                 }
                 if (c.getName().equals("campus")) {
                     campusID = c.getValue();
-
                 }
             }
         }

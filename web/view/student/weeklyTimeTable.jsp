@@ -113,7 +113,7 @@
         <div class="menu">
             <a href="home.html" class="home-button">Home</a>
             Time weekly table
-            <a href="login.html" class="logout-button">Logout</a>
+            <a href="../login" class="logout-button">Logout</a>
 
         </div>
         <table border="1px">
@@ -151,34 +151,42 @@
                 <td class="date">
                 </td>
             </tr>
-            <%--<c:forEach begin="1" end="6" varStatus="slot">--%>
+            <c:forEach begin="1" end="6" varStatus="slot">
             <tr>
-                <td>Slot ${slot.index+1}</td>
-                <c:forEach items="${requestScope.listLesson}" var="l">
-                    <c:if test="${l.slot.slotId eq 1}">
-                        <c:forEach begin="1" end="7" varStatus="day">
+                <c:set var="current" value="${1}"/>
+                <c:set var="follow" value="${1}"/>
+                <td>Slot ${slot.index}</td>
+                <c:forEach items="${requestScope.listLesson}" var="l">                    
+                    <c:if test="${l.slot.slotId eq slot.index}">
+                        <c:forEach begin= "${current}" end="7" varStatus="day">
                             <c:if test="${l.date.getDay() eq day.index}">
+
                                 <td>
                                     <div>
-                                        ${day.index}
                                         ${l.group.course.courseName} - ${l.group.groupName}<br>
                                         at ${l.room.roomName} <br>
-                                        <span style="color: ${l.attendanceStatus eq 2 ? 'green' : 'red'};">
+                                        <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
                                             ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
-                                        </span>
+                                        </span> <br>
+                                        (${l.slot.startTime} - ${l.slot.endTime})
                                     </div>
                                 </td>
+                                <c:set var="current" value="${day.index+1}"/>
+                                <c:set var="follow" value="${day.index+1}"/> 
                             </c:if>
-                            <c:if test="${l.date.getDay() > current}">
+                            <c:if test="${l.date.getDay() > day.index}">
                                 <td>
-                                    ${day.index}
                                 </td>
                             </c:if>
-                        </c:forEach>   
+                        </c:forEach> 
                     </c:if>
                 </c:forEach>
+                <c:forEach begin="${follow}" end="7">
+                    <td></td>
+                </c:forEach>
+
             </tr>
-            <%--</c:forEach>--%>
+            </c:forEach>
             <!--            <tr>
                             <td><b>Slot5</b>
                             </td>
@@ -197,7 +205,7 @@
                             <td></td>
                         </tr>-->
         </table>
-        <!--<script src="../../js/student/weeklyTimeTable.js" type="text/javascript"></script>-->
+        <script src="../js/student/weeklyTimeTable.js" type="text/javascript"></script>
     </body>
 
 </html>

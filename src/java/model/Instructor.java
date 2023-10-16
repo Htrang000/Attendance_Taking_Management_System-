@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 public class Instructor {
     private int instructorId;
-    private String instructorCod;
+    private String instructorCode;
     private String firstName;
     private String lastName;
     private String img;

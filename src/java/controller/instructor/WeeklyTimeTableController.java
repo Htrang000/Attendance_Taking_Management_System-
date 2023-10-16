@@ -2,35 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.student;
+package controller.instructor;
 
 import controller.authentication.BasedRequiredAuthenticationController;
+import dao.InstructorDBContext;
 import dao.LessonDBContext;
-import dao.StudentDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import model.Account;
+import model.Instructor;
 import model.Lesson;
-import model.Student;
-import service.student.StudentService;
+import service.instructor.InstructorService;
 
 /**
  *
  * @author Admin
  */
 public class WeeklyTimeTableController extends BasedRequiredAuthenticationController{
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc)throws ServletException, IOException {
         LessonDBContext ldb = new LessonDBContext();
-        StudentDBContext stdb = new StudentDBContext();
-        StudentService ss = new StudentService(stdb, ldb);
+        InstructorDBContext idb = new InstructorDBContext();
+        InstructorService is = new InstructorService(idb, ldb);
         Account a = (Account)req.getSession().getAttribute("session");
-        Student s = ss.getStudentByAcc(a);
-        ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s);
+        Instructor i = is.getInstructorByAcc(a);
+        System.out.println(i.getInstructorId());
+        ArrayList<Lesson> listLesson = is.getCurrentWeekly(i);
         req.setAttribute("listLesson", listLesson);
         req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
