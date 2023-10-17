@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.home;
+package controller.authentication;
 
-import controller.authentication.BasedRequiredAuthenticationController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,22 +14,12 @@ import model.Account;
  *
  * @author Admin
  */
-public class HomeController extends BasedRequiredAuthenticationController{
+public class LogoutController extends BasedRequiredAuthenticationController{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException {
-    String action = req.getParameter("action");
-    if(action==null){
-        req.getRequestDispatcher("view/home/home.jsp").forward(req, resp);
-    }else if(action.equalsIgnoreCase("schedule")){
-        if(acc.getRole().getRoleId()==1){
-        resp.sendRedirect(req.getContextPath()+"/instructor/scheduleOfWeek");
-        }
-        else{
-            resp.sendRedirect(req.getContextPath()+"/student/scheduleOfWeek");
-        }
-    }
-    
+        req.getSession().invalidate();
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 
     @Override

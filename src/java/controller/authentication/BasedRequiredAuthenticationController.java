@@ -70,7 +70,7 @@ public abstract class BasedRequiredAuthenticationController extends HttpServlet 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (isAuthenticated(req)) {
-            doGet(req, resp, (Account) req.getSession().getAttribute("session"));
+            doPost(req, resp, (Account) req.getSession().getAttribute("session"));
         } else {
             resp.sendRedirect(req.getContextPath() + "/login");
         }

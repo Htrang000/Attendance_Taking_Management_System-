@@ -113,19 +113,21 @@
         <div class="menu">
             <a href="home.html" class="home-button">Home</a>
             Time weekly table
-            <a href="../login" class="logout-button">Logout</a>
+            <% String contextPath = request.getContextPath();%>
+            <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
 
         </div>
         <table border="1px">
             <th rowspan="2">
-                <form action="scheduleOfWeek" method="post">
-                    <b>Year </b><select name="" id="year">
-                        <option>2023</option>
-                        <option>2022</option>
-                        <option>2021</option>
-                        <option>2020</option>
+                <form action="scheduleOfWeek" method="post" id="form">
+                    <b>Year </b><select name="year" id="year">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
                     </select> <br>
-                    <b>Week </b><select name="" id="week">Week</select>
+                    <b>Week </b><select name="week" id="week" onchange="submitForm(this)">Week</select>
+                    <input type="hidden" id="monday" name="monday">
                 </form>     
             </th>
             <th>Mon</th>

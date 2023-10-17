@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import model.Account;
 import model.Lesson;
@@ -37,6 +38,16 @@ public class WeeklyTimeTableController extends BasedRequiredAuthenticationContro
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException{
+        Date monday = Date.valueOf(req.getParameter("monday"));
+        Date sunday = Date.valueOf(monday.toLocalDate().plusDays(6));
+        LessonDBContext ldb = new LessonDBContext();
+        StudentDBContext stdb = new StudentDBContext();
+        StudentService ss = new StudentService(stdb, ldb);
+        Account a = (Account)req.getSession().getAttribute("session");
+        Student s = ss.getStudentByAcc(a);
+        ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s,monday,sunday);
+        req.setAttribute("listLesson", listLesson);
+        req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
     
 }

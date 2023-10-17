@@ -27,40 +27,45 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        String email = null;
-        String password = null;
-        String campusID = null;
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if (email != null && password != null && campusID != null) {
-                    break;
-                }
-                if (c.getName().equals("email")) {
-                    email = c.getValue();
-                }
-                if (c.getName().equals("password")) {
-                    password = c.getValue();
-                }
-                if (c.getName().equals("campus")) {
-                    campusID = c.getValue();
+        Account a = (Account) req.getSession().getAttribute("session");
+        if (a == null) {
+            Cookie[] cookies = req.getCookies();
+            String email = null;
+            String password = null;
+            String campusID = null;
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+                    if (email != null && password != null && campusID != null) {
+                        break;
+                    }
+                    if (c.getName().equals("email")) {
+                        email = c.getValue();
+                    }
+                    if (c.getName().equals("password")) {
+                        password = c.getValue();
+                    }
+                    if (c.getName().equals("campus")) {
+                        campusID = c.getValue();
+                    }
                 }
             }
-        }
-        
-        if (email != null && password != null && campusID != null) {
-            AccountDBContext accDB = new AccountDBContext();
-            Account account = accDB.get(email, password, Integer.parseInt(campusID));
-            if (account != null) {
-                HttpSession session = req.getSession();
-                session.setAttribute("session", account);
-                resp.sendRedirect("view/home/home.jsp");
+
+            if (email != null && password != null && campusID != null) {
+                AccountDBContext accDB = new AccountDBContext();
+                Account account = accDB.get(email, password, Integer.parseInt(campusID));
+                if (account != null) {
+                    HttpSession session = req.getSession();
+                    session.setAttribute("session", account);
+                    resp.sendRedirect(req.getContextPath() + "/home");
+                }
+            } else {
+                IDBContext campus = new CampusDBContext();
+                ArrayList<Campus> campuses = campus.getList();
+                req.setAttribute("campuses", campuses);
+                req.getRequestDispatcher("view/authentication/login.jsp").forward(req, resp);
             }
         } else {
-            IDBContext campus = new CampusDBContext();
-            ArrayList<Campus> campuses = campus.getList();
-            req.setAttribute("campuses", campuses);
-            req.getRequestDispatcher("view/authentication/login.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/home");
         }
 
     }
@@ -78,7 +83,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("session", acc);
             service.saveToCookie(resp, email, password, remember, campusID);
-            resp.sendRedirect("view/home/home.jsp");
+            resp.sendRedirect(req.getContextPath() + "/home");
         } else {
             String error = "Your account is invalid. Please try again";
             req.setAttribute("error", error);
