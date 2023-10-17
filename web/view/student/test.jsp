@@ -126,7 +126,7 @@
                         <option value="2021">2021</option>
                         <option value="2020">2020</option>
                     </select> <br>
-                    <b>Week </b><select name="week" id="week" onchange="submitForm(this)" value="${requestScope.week}">Week</select>
+                    <b>Week </b><select name="week" id="week" onchange="submitForm(this)">Week</select>
                     <input type="hidden" id="monday" name="monday">
                 </form>     
             </th>
@@ -153,42 +153,20 @@
                 <td class="date">
                 </td>
             </tr>
-            <c:forEach begin="1" end="6" varStatus="slot">
-            <tr>
-                <c:set var="current" value="${1}"/>
-                <c:set var="follow" value="${1}"/>
-                <td>Slot ${slot.index}</td>
-                <c:forEach items="${requestScope.listLesson}" var="l">                    
-                    <c:if test="${l.slot.slotId eq slot.index or l.slot.slotId-6+1 eq slot.index}">
-                        <c:forEach begin= "${current}" end="7" varStatus="day">
-                            <c:if test="${l.date.getDay() eq day.index}">
-
-                                <td>
-                                    <div>
-                                        ${l.group.course.courseName} - ${l.group.groupName}<br>
-                                        at ${l.room.roomName} <br>
-                                        <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
-                                            ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
-                                        </span> <br>
-                                        (${l.slot.startTime} - ${l.slot.endTime})
-                                    </div>
-                                </td>
-                                <c:set var="current" value="${day.index+1}"/>
-                                <c:set var="follow" value="${day.index+1}"/> 
-                            </c:if>
-                            <c:if test="${l.date.getDay() > day.index}">
-                                <td>
-                                </td>
-                            </c:if>
-                        </c:forEach> 
-                    </c:if>
-                </c:forEach>
-                <c:forEach begin="${follow}" end="7">
-                    <td></td>
-                </c:forEach>
-
-            </tr>
+            <c:forEach items="${requestScope.listLesson}" var="l">   
+                <c:if test="${l.slot.slotId eq 3}">
+                    <div>
+                        ${l.group.course.courseName} - ${l.group.groupName}<br>
+                        at ${l.room.roomName} <br>
+                        ${l.date.getDay()} <br>
+                        <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
+                            ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
+                        </span> <br>
+                        (${l.slot.startTime} - ${l.slot.endTime})
+                    </div>
+                </c:if>
             </c:forEach>
+
         </table>
         <script src="../js/student/weeklyTimeTable.js" type="text/javascript"></script>
     </body>
