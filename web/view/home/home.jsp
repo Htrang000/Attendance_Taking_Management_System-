@@ -101,8 +101,8 @@
         <div class="option">
             <button type="button" value="1" class="option1-button"><a href="home?action=schedule">Weekly timetable</a></button>
             <button type="button" class="option2-button"><a href="home?action=report">Attendance Report</a></button> <br>
-            <button type="button" class="option3-button"><a href="home?action=viewInfor">Student Information</a></button>
-            <button type="button" class="option4-button"><a href="home?action=help">Help</a></button> <br>
+            <button type="button" class="option3-button"><a href="home?action=viewInfor">Take Attendance</a></button>
+            <button type="button" class="option4-button"><a href="home?action=help">Instructor Information</a></button> <br>
         </div>
 
         <div class="footer">

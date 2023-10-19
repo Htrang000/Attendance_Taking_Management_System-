@@ -12,11 +12,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 import model.Instructor;
 import model.Lesson;
 import service.instructor.InstructorService;
+import util.DateUtil;
 
 /**
  *
@@ -25,53 +29,44 @@ import service.instructor.InstructorService;
 public class WeeklyTimeTableController extends BasedRequiredAuthenticationController{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc)throws ServletException, IOException {
+        DateUtil util = new DateUtil();
+        Date from = util.getMondayOfCurrentWeek();
+        Date to = util.getSundayOfCurrentWeek();
+        ArrayList<Date> dates = (ArrayList<Date>) DateUtil.getDatesOfCurrentWeek();
         LessonDBContext ldb = new LessonDBContext();
         InstructorDBContext idb = new InstructorDBContext();
         InstructorService is = new InstructorService(idb, ldb);
         Account a = (Account)req.getSession().getAttribute("session");
         Instructor i = is.getInstructorByAcc(a);
         System.out.println(i.getInstructorId());
-        ArrayList<Lesson> listLesson = is.getCurrentWeekly(i);
-        for (int j = 0; j < listLesson.size(); j++) {
-            for (int k = 0; k < listLesson.size() - j - 1; k++) {
-                if (listLesson.get(k).getDate().getDay() > listLesson.get(k + 1).getDate().getDay()) {
-                    swap(listLesson, k, k + 1);
-                }
-            }
-        }
+        ArrayList<Lesson> listLesson = is.getCurrentWeekly(i, from, to);
         req.setAttribute("listLesson", listLesson);
+        req.setAttribute("from", from);
+        req.setAttribute("to", to);
+        req.setAttribute("dates", dates);       
         req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
 
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException{
-        int week = Integer.parseInt(req.getParameter("week"));
-        Date monday = Date.valueOf(req.getParameter("monday"));
-        Date sunday = Date.valueOf(monday.toLocalDate().plusDays(6));
+        String from = req.getParameter("from");
+        String to = req.getParameter("to");
+        ArrayList<Date> dates = new ArrayList<>();
+        try {
+            dates = (ArrayList<Date>) DateUtil.getSQLDatesBetween(from, to);
+        } catch (ParseException ex) {
+            Logger.getLogger(WeeklyTimeTableController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         LessonDBContext ldb = new LessonDBContext();
         InstructorDBContext idb = new InstructorDBContext();
         InstructorService is = new InstructorService(idb, ldb);
         Account a = (Account)req.getSession().getAttribute("session");
         Instructor i = is.getInstructorByAcc(a);
-        System.out.println(i.getInstructorId());
-        ArrayList<Lesson> listLesson = is.getCurrentWeekly(i, monday, sunday);
-        for (int j = 0; j < listLesson.size(); j++) {
-            for (int k = 0; k < listLesson.size() - j - 1; k++) {
-                if (listLesson.get(k).getDate().getDay() > listLesson.get(k + 1).getDate().getDay()) {
-                    swap(listLesson, k, k + 1);
-                }
-            }
-        }
-        req.setAttribute("week", week);
+        ArrayList<Lesson> listLesson = is.getCurrentWeekly(i, Date.valueOf(from), Date.valueOf(to));
         req.setAttribute("listLesson", listLesson);
+        req.setAttribute("dates", dates); 
         req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
-    
-    private static void swap(ArrayList<Lesson> list, int i, int j) {
-        Lesson tmp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, tmp);
-    }
-    
+   
 }

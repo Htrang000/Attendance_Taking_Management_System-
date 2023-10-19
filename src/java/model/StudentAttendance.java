@@ -4,7 +4,8 @@
  */
 package model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,6 @@ public class StudentAttendance {
     private Student student;
     private Lesson lesson;
     private int status;
-    private Timestamp recordTime;
+    private Time recordTime;
+    private Date recordDate;
 }

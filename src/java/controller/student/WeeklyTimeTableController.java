@@ -32,42 +32,23 @@ public class WeeklyTimeTableController extends BasedRequiredAuthenticationContro
         Account a = (Account) req.getSession().getAttribute("session");
         Student s = ss.getStudentByAcc(a);
         ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s);
-        for (int j = 0; j < listLesson.size(); j++) {
-            for (int k = 0; k < listLesson.size() - j - 1; k++) {
-                if (listLesson.get(k).getDate().getDay() > listLesson.get(k + 1).getDate().getDay()) {
-                    swap(listLesson, k, k + 1);
-                }
-            }
-        }
         req.setAttribute("listLesson", listLesson);
         req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account acc) throws ServletException, IOException {
-        Date monday = Date.valueOf(req.getParameter("monday"));
-        Date sunday = Date.valueOf(monday.toLocalDate().plusDays(6));
+        Date from = Date.valueOf(req.getParameter("from"));
+        Date to = Date.valueOf(req.getParameter("to"));
         LessonDBContext ldb = new LessonDBContext();
         StudentDBContext stdb = new StudentDBContext();
         StudentService ss = new StudentService(stdb, ldb);
         Account a = (Account) req.getSession().getAttribute("session");
         Student s = ss.getStudentByAcc(a);
-        ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s, monday, sunday);
-                for (int j = 0; j < listLesson.size(); j++) {
-            for (int k = 0; k < listLesson.size() - j - 1; k++) {
-                if (listLesson.get(k).getDate().getDay() > listLesson.get(k + 1).getDate().getDay()) {
-                    swap(listLesson, k, k + 1);
-                }
-            }
-        }
+        ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s, from, to);
         req.setAttribute("listLesson", listLesson);
         req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
     }
     
-        private static void swap(ArrayList<Lesson> list, int i, int j) {
-        Lesson tmp = list.get(i);
-        list.set(i, list.get(j));
-        list.set(j, tmp);
-    }
 
 }

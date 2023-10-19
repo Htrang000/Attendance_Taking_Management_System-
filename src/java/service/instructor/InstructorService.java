@@ -39,12 +39,6 @@ public class InstructorService {
         return idb.getByAccount(acc);
     }
 
-    public ArrayList<Lesson> getCurrentWeekly(Instructor i) {
-        DateUtil util = new DateUtil();
-        Date monday = util.getMondayOfCurrentWeek();
-        Date sunday = util.getSundayOfCurrentWeek();
-        return ldb.getWeeklyTimeTable(i, monday, sunday);
-    }
 
     public ArrayList<Lesson> getCurrentWeekly(Instructor i, Date startDate, Date endDate) {
         return ldb.getWeeklyTimeTable(i, startDate, endDate);
