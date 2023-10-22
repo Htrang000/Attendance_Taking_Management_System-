@@ -53,6 +53,10 @@
                 text-align: center;
             }
 
+            .fixed-column {
+                min-width: 150px; /* Điều chỉnh kích thước theo ý muốn */
+            }
+
             /* CSS cho các hàng chẵn */
             #timeTable tr:nth-child(even) {
                 background-color: rgb(107, 144, 218, 0.2);
@@ -100,6 +104,39 @@
                 border-bottom: 1px solid white;
             }
 
+            #table-container {
+                width: 100%;
+                overflow-x: auto;
+                max-width: 95%; /* Điều chỉnh chiều rộng tối đa theo ý của bạn */
+                margin: 0 auto;
+            }
+
+            #table-container {
+                width: 100%;
+                overflow-x: auto;
+                margin: 0 auto;
+            }
+
+            #timeTable {
+                width: auto;
+                border-collapse: collapse;
+            }
+
+            /* Cố định kích thước của 7 cột đầu tiên */
+            #timeTable th:nth-child(-n+7),
+            #timeTable td:nth-child(-n+7) {
+                width: 150px; /* Điều chỉnh kích thước theo ý muốn */
+            }
+
+            /* Thanh cuộn ngang cho các cột còn lại */
+            #timeTable th:nth-child(n+8),
+            #timeTable td:nth-child(n+8) {
+                min-width: 150px; /* Điều chỉnh kích thước theo ý muốn */
+            }
+
+
+
+
         </style>
     </head>
 
@@ -112,77 +149,79 @@
             <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
 
         </div>
-        <table id="timeTable" border="1px">
-            <th rowspan="2">
-                <form action="timetable" method="Post">
-                    <table class="select">
-                        <tr class="timeSelect">
-                            <td style="border:none;">From</td>
-                            <td style="border:none;"><input type="date" value="${requestScope.from}" id="from" name="from" onchange="change()"/></td>
-                        </tr>
-                        <tr class="timeSelect">
-                            <td style="border:none;">To</td>
-                            <td style="border:none;"><input type="date" value="${requestScope.to}" id="to" name="to" onchange="change()"/> </td>
-                        </tr>
-                    </table>
-                </form>
-            </th>
+        <div id="table-container">
+            <table id="timeTable" border="1px">
+                <th rowspan="2">
+                    <form action="scheduleOfWeek" method="Post" id="my-form">
+                        <table class="select">
+                            <tr class="timeSelect">
+                                <td style="border:none;">From</td>
+                                <td style="border:none;"><input type="date" value="${requestScope.from}" id="from" name="from" onchange="submitForm()"/></td>
+                            </tr>
+                            <tr class="timeSelect">
+                                <td style="border:none;">To</td>
+                                <td style="border:none;"><input type="date" value="${requestScope.to}" id="to" name="to" onchange="submitForm()"/> </td>
+                            </tr>
+                        </table>
+                    </form>
+                </th>
 
-            <c:forEach items="${requestScope.dates}" var="d">
-                <c:if test="${d.getDay()==1}">
-                    <th>Mon</th>
-                    </c:if>
-                    <c:if test="${d.getDay()==2}">
-                    <th>Tue</th>
-                    </c:if>
-                    <c:if test="${d.getDay()==3}">
-                    <th>Wed</th>
-                    </c:if>
-                    <c:if test="${d.getDay()==4}">
-                    <th>Thu</th> 
-                    </c:if>
-                    <c:if test="${d.getDay()==5}">
-                    <th>Fri</th>  
-                    </c:if>
-                    <c:if test="${d.getDay()==6}">
-                    <th>Sat</th> 
-                    </c:if>
-                    <c:if test="${d.getDay()==0}">
-                    <th>Sun</th> 
-                    </c:if>
-
-            </c:forEach>
-            <tr>
                 <c:forEach items="${requestScope.dates}" var="d">
-                    <td class="date"> ${d} </td>
+                    <c:if test="${d.getDay()==1}">
+                        <th class="fixed-column">Mon</th>
+                        </c:if>
+                        <c:if test="${d.getDay()==2}">
+                        <th class="fixed-column">Tue</th>
+                        </c:if>
+                        <c:if test="${d.getDay()==3}">
+                        <th class="fixed-column">Wed</th>
+                        </c:if>
+                        <c:if test="${d.getDay()==4}">
+                        <th class="fixed-column">Thu</th> 
+                        </c:if>
+                        <c:if test="${d.getDay()==5}">
+                        <th class="fixed-column">Fri</th>  
+                        </c:if>
+                        <c:if test="${d.getDay()==6}">
+                        <th class="fixed-column">Sat</th> 
+                        </c:if>
+                        <c:if test="${d.getDay()==0}">
+                        <th class="fixed-column">Sun</th> 
+                        </c:if>
+
                 </c:forEach>
-            </tr>
+                <tr>
+                    <c:forEach items="${requestScope.dates}" var="d">
+                        <td class="date"> ${d} </td>
+                    </c:forEach>
+                </tr>
 
-            <c:forEach begin="1" end="6" varStatus="slot">
-                <td>Slot ${slot.index}</td>
-                <c:forEach items="${requestScope.dates}" var="d">
-                    <td>
-                        <c:forEach items="${requestScope.listLesson}" var="l">
-                            <c:if test="${l.date eq d and l.slot.slotId eq slot.index}">
-                                <div>
-                                    ${l.group.course.courseName} - ${l.group.groupName}<br>
-                                    at ${l.room.roomName} <br>
-                                    ${l.date.getDay()} <br>
-                                    <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
-                                        ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
-                                    </span> <br>
-                                    (${l.slot.startTime} - ${l.slot.endTime})
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    </td>
+                <c:forEach begin="1" end="6" varStatus="slot">
+                    <td>Slot ${slot.index}</td>
+                    <c:forEach items="${requestScope.dates}" var="d">
+                        <td>
+                            <c:forEach items="${requestScope.listLesson}" var="l">
+                                <c:if test="${l.date eq d and l.slot.slotId eq slot.index}">
+                                    <div>
+                                        ${l.group.course.courseName} - ${l.group.groupName}<br>
+                                        at ${l.room.roomName} <br>
+                                        <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
+                                            ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
+                                        </span> <br>
+                                        (${l.slot.startTime} - ${l.slot.endTime})
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                    </c:forEach>
+                    </tr>
+
                 </c:forEach>
-            </tr>
 
-        </c:forEach>
+            </table>
+        </div>
 
-    </table>
-    <script src="../js/weeklyTimeTable/WeeklyTimeTable.js" type="text/javascript"></script>
-</body>
+        <script src="../js/weeklyTimeTable/WeeklyTimeTable.js" type="text/javascript"></script>
+    </body>
 
 </html>

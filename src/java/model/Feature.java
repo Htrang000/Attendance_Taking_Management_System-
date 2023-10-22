@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.sun.xml.internal.ws.api.FeatureListValidator;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,13 +15,12 @@ import lombok.Setter;
  *
  * @author Admin
  */
-
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class Role {
-    private int roleId;
-    private String roleName;
-    private Set<Feature> features;
+public class Feature {
+    private int featureId;
+    private String featureUrl;
+    private Set<Role> roles;
 }

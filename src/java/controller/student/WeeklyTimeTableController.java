@@ -33,7 +33,7 @@ public class WeeklyTimeTableController extends BasedRequiredAuthenticationContro
         Student s = ss.getStudentByAcc(a);
         ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s);
         req.setAttribute("listLesson", listLesson);
-        req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
+        req.getRequestDispatcher("../view/weeklyTimeTable/weeklyTimeTable.jsp").forward(req, resp);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class WeeklyTimeTableController extends BasedRequiredAuthenticationContro
         Student s = ss.getStudentByAcc(a);
         ArrayList<Lesson> listLesson = ss.getCurrentWeekly(s, from, to);
         req.setAttribute("listLesson", listLesson);
-        req.getRequestDispatcher("../view/student/weeklyTimeTable.jsp").forward(req, resp);
+        req.getRequestDispatcher("../view/weeklyTimeTable/weeklyTimeTable.jsp").forward(req, resp);
     }
     
 
