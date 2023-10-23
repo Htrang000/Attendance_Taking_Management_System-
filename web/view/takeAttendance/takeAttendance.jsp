@@ -16,6 +16,10 @@
                 margin: 10px;
             }
 
+            body {
+                font-family: Arial, sans-serif;
+            }
+
             h1 {
                 background-color: white;
                 color: #f37022;
@@ -35,8 +39,18 @@
                 color: white;
                 text-align: center;
                 border-radius: 10px;
+                margin-bottom: 20px;
             }
 
+            /* CSS cho các liên kết bên trong thẻ "menu" */
+            .menu {
+                background-color: #f37022;
+                padding: 10px;
+                color: white;
+                text-align: center;
+                border-radius: 10px;
+                font-weight: bold;
+            }
             /* CSS cho các liên kết bên trong thẻ "menu" */
             .menu button {
                 color: white;
@@ -113,8 +127,8 @@
         <h1>Attendance Taking Management System</h1>
         <div class="menu">
             <% String contextPath = request.getContextPath();%>
-            <a href="<%=contextPath + "/home"%>" class="home-button">Home</a>
-            Time weekly table       
+            <a href="<%=contextPath + "/home"%>" class="home-button">Home</a> 
+            <span>Take attendance</span>  
             <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
 
         </div>
@@ -133,11 +147,11 @@
                 </thead>
                 <tbody>
                 <input type="hidden" name="lessonId" value="${requestScope.lessonId}">
-                    <c:forEach var="s" items="${students}" varStatus="loop">
-                        <tr>
+                <c:forEach var="s" items="${students}" varStatus="loop">
+                    <tr>
                         <td>${loop.index + 1}</td>
-                        <input type="hidden" value="${loop.index}" readonly name="indexs">
-                        <input type="hidden" value="${s.studentId}" readonly name="studentid${loop.index}">
+                    <input type="hidden" value="${loop.index}" readonly name="indexs">
+                    <input type="hidden" value="${s.studentId}" readonly name="studentid${loop.index}">
                     <td>${groupName}</td>
                     <td>${s.studentCode}</td>
                     <td>${s.name}</td>

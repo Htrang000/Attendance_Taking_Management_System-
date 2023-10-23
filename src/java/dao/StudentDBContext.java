@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import model.Account;
 import model.Group;
 import model.Student;
+import model.StudentAttendance;
 import util.DateUtil;
 
 /**
@@ -109,8 +110,29 @@ public class StudentDBContext extends DBContext implements IDBContext<Student> {
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    }
 
+    public ArrayList<StudentAttendance> getListAttendance(int studentId, int lessonId) {
+        ArrayList<StudentAttendance> list = new ArrayList<>();
+        String sql = "SELECT [Status], Recordtime, Recordday, Comment  FROM Student_Attendance\n"
+                + "WHERE Student_id = ? && Lesson_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, studentId);
+            stm.setInt(2, lessonId);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                StudentAttendance stuAtt = new StudentAttendance();
+                stuAtt.setStatus(rs.getInt("Status"));
+                stuAtt.setRecordTime(rs.getTime("Recordtime"));
+                stuAtt.setRecordDate(rs.getDate("Recordday"));
+                stuAtt.setComment(rs.getString("comment"));
+                list.add(stuAtt);              
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return list;
     }
 
     public static void main(String[] args) {

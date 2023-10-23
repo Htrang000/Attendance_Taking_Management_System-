@@ -50,16 +50,13 @@ public class TakeAttendanceController extends BasedAuthorizatedController{
             InstructorService is = new InstructorService(ldb);
             StudentService ss = new StudentService(sdb);
             for (String index : indexs) {
-                String studentID = req.getParameter("studentid" + index);
+                int studentID = Integer.parseInt(req.getParameter("studentid" + index));
                 int status = Integer.parseInt(req.getParameter("status" +index));
                 String comment = req.getParameter("comment" + index); 
                 is.updateLessonStatus(1, lessonId);
-                ss.updateStudentAttendance(status, lessonId, status, comment);               
-            }
-            
-            
-        resp.sendRedirect(req.getContextPath() + "/instructor/scheduleOfWeek");
-            
+                ss.updateStudentAttendance(studentID, lessonId, status, comment);               
+            }           
+        resp.sendRedirect(req.getContextPath() + "/instructor/scheduleOfWeek");            
         }
     
     
