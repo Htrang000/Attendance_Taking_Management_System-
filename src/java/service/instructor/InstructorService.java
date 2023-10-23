@@ -43,4 +43,10 @@ public class InstructorService {
     public ArrayList<Lesson> getCurrentWeekly(Instructor i, Date startDate, Date endDate) {
         return ldb.getWeeklyTimeTable(i, startDate, endDate);
     }
+    
+    public void updateLessonStatus(int status, int lessonId){
+        ldb.updateStatus(1, lessonId);
+    }
+    
+
 }

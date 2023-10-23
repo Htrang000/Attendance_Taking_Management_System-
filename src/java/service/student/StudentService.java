@@ -34,9 +34,7 @@ public class StudentService {
         this.stdb = stdb;
         this.ldb = ldb;
     }
-    
-    
-    
+      
 
     public Student getStudentByAcc(Account acc) {
         return stdb.getByAccount(acc);
@@ -51,6 +49,15 @@ public class StudentService {
     
     public ArrayList<Lesson> getCurrentWeekly(Student s, Date startDate, Date endDate){
         return ldb.getWeeklyTimeTable(s, startDate, endDate);
+    }
+    
+    
+    public ArrayList<Student> getListStudentByGroupId(int Group_id){
+        return stdb.getListByGroupId(Group_id);
+    }
+    
+    public void updateStudentAttendance(int studentId, int lessonId, int status, String comment){
+        stdb.updateStudentAttendance(studentId, lessonId, status, comment);
     }
     
     

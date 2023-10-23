@@ -31,20 +31,22 @@ import util.DateUtil;
  */
 public class WeeklyTimeTableController extends BasedAuthorizatedController {
 
-   
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc, Set<Feature> features) throws ServletException, IOException {
         DateUtil util = new DateUtil();
         Date from = util.getMondayOfCurrentWeek();
         Date to = util.getSundayOfCurrentWeek();
-        ArrayList<Date> dates = (ArrayList<Date>) DateUtil.getDatesOfCurrentWeek();
+        ArrayList<Date> dates = new ArrayList<>();
+        try {
+            dates = (ArrayList<Date>) DateUtil.getSQLDatesBetween(from.toString(), to.toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(WeeklyTimeTableController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         LessonDBContext ldb = new LessonDBContext();
         InstructorDBContext idb = new InstructorDBContext();
         InstructorService is = new InstructorService(idb, ldb);
         Account a = (Account) req.getSession().getAttribute("session");
         Instructor i = is.getInstructorByAcc(a);
-        System.out.println(i.getInstructorId());
         ArrayList<Lesson> listLesson = is.getCurrentWeekly(i, from, to);
         req.setAttribute("listLesson", listLesson);
         req.setAttribute("from", from);
@@ -75,5 +77,12 @@ public class WeeklyTimeTableController extends BasedAuthorizatedController {
         req.setAttribute("to", Date.valueOf(to));
         req.getRequestDispatcher("../view/weeklyTimeTable/weeklyTimeTable.jsp").forward(req, resp);
     }
+
+    public static void main(String[] args) {
+        DateUtil util = new DateUtil();
+        Date from = util.getMondayOfCurrentWeek();
+        System.out.println(from);
+    }
+   
 
 }

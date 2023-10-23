@@ -22,8 +22,7 @@ import lombok.Setter;
 public class Student {
    private int studentId;
    private String studentCode;
-   private String firstName;
-   private String lastName;
+   private String name;
    private String img;
    private Date dob;
    private boolean gender;

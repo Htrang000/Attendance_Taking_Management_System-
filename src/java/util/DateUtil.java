@@ -5,6 +5,7 @@
 package util;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,49 +18,20 @@ import java.util.List;
  */
 public class DateUtil {
 
-    public  Date getMondayOfCurrentWeek() {
+    public Date getMondayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         return new Date(calendar.getTimeInMillis());
     }
 
-    public  Date getSundayOfCurrentWeek() {
+    public Date getSundayOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         calendar.add(Calendar.DAY_OF_MONTH, 7); // Di chuyển đến cuối tuần
         return new Date(calendar.getTimeInMillis());
     }
-    
-    public static List<Date> getDatesOfCurrentWeek() {
-        List<Date> dates = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();  // gets the current date and time
-        
-        // Set the calendar to the start of today
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
 
-        // Determine the offset from the first day of the week (in this case, we consider Monday as the first day)
-        int offset = cal.get(Calendar.DAY_OF_WEEK) - Calendar.MONDAY;
-        // If it's negative, we are in a week which is 'split' by the month end (e.g., Sunday is in the new month)
-        if (offset < 0) {
-            offset += 7;
-        }
-
-        // Rewind the calendar to last Monday. It's the start of the week
-        cal.add(Calendar.DATE, -offset);
-
-        // Loop to construct the list of dates
-        for (int i = 0; i < 7; i++) {  // 7 days in a week
-            Date sqlDate = new Date(cal.getTimeInMillis()); // convert to java.sql.Date
-            dates.add(sqlDate);
-            cal.add(Calendar.DATE, 1);  // move to the next day
-        }
-
-        return dates;
-    }
-        public static List<Date> getSQLDatesBetween(String start, String end) throws ParseException {
+    public static List<Date> getSQLDatesBetween(String start, String end) throws ParseException {
         List<Date> dates = new ArrayList<>();
 
         // Define a simple date format, e.g., "2023-01-01"
@@ -82,4 +54,15 @@ public class DateUtil {
         return dates;
     }
 
+    public static Date getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date currentDate = calendar.getTime();
+        return new Date(currentDate.getTime());
+    }
+    
+     public static Time getCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date currentTime = calendar.getTime();
+        return new Time(currentTime.getTime());
+    }
 }

@@ -203,7 +203,8 @@
                             <c:forEach items="${requestScope.listLesson}" var="l">
                                 <c:if test="${l.date eq d and l.slot.slotId eq slot.index}">
                                     <div>
-                                        ${l.group.course.courseName} - ${l.group.groupName}<br>
+                                        ${l.group.course.courseName} - ${l.group.groupId}
+                                        - <a href="<%=contextPath + "/instructor/takeAttendance?groupId="%>${l.group.groupId}&lessonId=${l.lessonId}">${l.group.groupName}</a><br>
                                         at ${l.room.roomName} <br>
                                         <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
                                             ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}
