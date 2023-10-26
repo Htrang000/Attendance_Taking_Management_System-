@@ -147,6 +147,24 @@ public class LessonDBContext extends DBContext implements IDBContext<LessonDBCon
         }
     }
 
+    public String getInstructorCode(int Lid) {
+        String sql = "SELECT i.Instructor_code FROM Lesson l JOIN Instructor i ON "
+                + "l.Instructor_id = i.Instructor_id\n"
+                + "WHERE Lesson_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, Lid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getString("Instructor_code");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+
     public static void main(String[] args) {
         LessonDBContext ldb = new LessonDBContext();
         Instructor i = new Instructor();

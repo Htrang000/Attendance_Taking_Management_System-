@@ -25,4 +25,5 @@ public class StudentAttendance {
     private int status;
     private Time recordTime;
     private Date recordDate;
+    private String comment;
 }

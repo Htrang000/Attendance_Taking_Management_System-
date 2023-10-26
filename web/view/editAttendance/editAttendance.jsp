@@ -1,6 +1,6 @@
 <%-- 
-    Document   : takeAttendance.jsp
-    Created on : Oct 22, 2023, 9:19:33 PM
+    Document   : editAttendance
+    Created on : Oct 26, 2023, 2:05:06 PM
     Author     : Admin
 --%>
 
@@ -118,70 +118,64 @@
                 background-color: rgb(107, 144, 218, 0.2);
             }
             .status{
-                width: 20%;
+                width: 10%;
             }
+        </style>      
+    </style>
+</head>
+<body>
+    <h1>Attendance Taking Management System</h1>
+    <div class="menu">
+        <% String contextPath = request.getContextPath();%>
+        <a href="<%=contextPath + "/home"%>" class="home-button">Home</a> 
+        <span>Take attendance</span>  
+        <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
 
-        </style>
-    </head>
-    <body>
-        <h1>Attendance Taking Management System</h1>
+    </div>
+    <form action="takeAttendance" method="post">
+        <input type="hidden" value="${requestScope.groupId}" name="groupId">
+        <table>
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Class</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Instructor</th>
+                    <th>Time</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+            <input type="hidden" name="lessonId" value="${requestScope.lessonId}">
+            <c:forEach var="s" items="${requestScope.sas}" varStatus="loop">
+                <tr>
+                    <td>${loop.index + 1}</td>
+                <input type="hidden" value="${loop.index}" readonly name="indexs">
+                <input type="hidden" value="${s.student.studentId}" readonly name="studentid${loop.index}">
+                <td>${groupName}</td>
+                <td>${s.student.studentCode}</td>
+                <td>${s.student.name}</td>
+                <td><img src="${s.student.img}" alt=""></td>
+                <td class="status" style="color: ${s.status eq 1?"green":"red" }">  ${s.status eq 1?"Present":"Absent" }</td>
+                <td>${instructorCode}</td>
+                <td>${s.recordTime} ${s.recordDate}</td>
+                <td>
+                    <textarea name="comment${loop.index}" cols="30" rows="4" readonly>${s.comment}</textarea>
+                </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+
         <div class="menu">
-            <% String contextPath = request.getContextPath();%>
-            <a href="<%=contextPath + "/home"%>" class="home-button">Home</a> 
-            <span>Take attendance</span>  
-            <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
-
+            <span style="margin-right: 15px;"><button type="button" class="save-button" onclick="save()">Save</button></span>
+            <span><button type="button" class="save-button" onclick="edit(${requestScope.groupId}, ${requestScope.lessonId})">Edit</button></span>
         </div>
-        <form action="takeAttendance" method="post">
-            <input type="hidden" value="${requestScope.groupId}" name="groupId">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Index</th>
-                        <th>Class</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Status</th>
-                        <th>Comment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <input type="hidden" name="lessonId" value="${requestScope.lessonId}">
-                <c:forEach var="s" items="${sas}" varStatus="loop">
-                    <tr>
-                        <td>${loop.index + 1}</td>
-                    <input type="hidden" value="${loop.index}" readonly name="indexs">
-                    <input type="hidden" value="${s.student.studentId}" readonly name="studentid${loop.index}">
-                    <td>${groupName}</td>
-                    <td>${s.student.studentCode}</td>
-                    <td>${s.student.name}</td>
-                    <td><img src="${s.student.img}" alt=""></td>
-                    <td class="status">
-                        <label>
-                            <input type="radio" name="status${loop.index}" required value="1"
-                                ${s.status eq 1?"checked":""}  
-                                   > Present
-                        </label>
-                        <label>
-                            <input type="radio" name="status${loop.index}" required value="0"
-                                  ${s.status ne 1?"checked":""}   > Absent
-                        </label>
-                    </td>
-                    <td>
-                        <textarea name="comment${loop.index}" cols="30" rows="4" >${s.comment}</textarea>
-                    </td>
-                    </tr>
-                </c:forEach>
-
-                </tbody>
-            </table>
-
-            <div class="menu">
-                <button type="submit" class="save-button">Save</button>
-            </div>
-        </form>
-
-
-    </body>
+    </form>
+    <script src="../js/editAttendance/editAttendance.js"></script>
+</body>
 </html>

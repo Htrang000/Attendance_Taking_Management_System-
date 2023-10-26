@@ -5,6 +5,7 @@
 package service.student;
 
 import dao.LessonDBContext;
+import dao.StudentAttendanceDBContext;
 import dao.StudentDBContext;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import model.Account;
 import model.Lesson;
 import model.Student;
+import model.StudentAttendance;
 import util.DateUtil;
 
 /**
@@ -22,6 +24,7 @@ public class StudentService {
 
     private StudentDBContext stdb;
     private LessonDBContext ldb;
+    private StudentAttendanceDBContext sadb;
     public StudentService(StudentDBContext stdb) {
         this.stdb = stdb;
     }
@@ -29,6 +32,19 @@ public class StudentService {
     public StudentService(LessonDBContext ldb) {
         this.ldb = ldb;
     }
+
+    public StudentService(StudentDBContext stdb, LessonDBContext ldb, StudentAttendanceDBContext sadb) {
+        this.stdb = stdb;
+        this.ldb = ldb;
+        this.sadb = sadb;
+    }
+
+    public StudentService(StudentAttendanceDBContext sadb) {
+        this.sadb = sadb;
+    }
+    
+    
+    
 
     public StudentService(StudentDBContext stdb, LessonDBContext ldb) {
         this.stdb = stdb;
@@ -58,6 +74,10 @@ public class StudentService {
     
     public void updateStudentAttendance(int studentId, int lessonId, int status, String comment){
         stdb.updateStudentAttendance(studentId, lessonId, status, comment);
+    }
+    
+    public ArrayList<StudentAttendance> getListStudentAttendances(int lid){
+        return sadb.getListByLesson(lid);        
     }
     
     

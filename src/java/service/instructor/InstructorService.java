@@ -48,5 +48,9 @@ public class InstructorService {
         ldb.updateStatus(1, lessonId);
     }
     
+    public String getInstructorCode(int lid){
+        return ldb.getInstructorCode(lid);
+    }
+    
 
 }

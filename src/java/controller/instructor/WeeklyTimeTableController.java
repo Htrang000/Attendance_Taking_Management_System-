@@ -78,11 +78,4 @@ public class WeeklyTimeTableController extends BasedAuthorizatedController {
         req.getRequestDispatcher("../view/weeklyTimeTable/weeklyTimeTable.jsp").forward(req, resp);
     }
 
-    public static void main(String[] args) {
-        DateUtil util = new DateUtil();
-        Date from = util.getMondayOfCurrentWeek();
-        System.out.println(from);
-    }
-   
-
 }

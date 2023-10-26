@@ -26,41 +26,32 @@ import service.student.StudentService;
  *
  * @author Admin
  */
-public class TakeAttendanceController extends BasedAuthorizatedController {
+public class EditAttendaceController extends BasedAuthorizatedController{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account acc, Set<Feature> features) throws ServletException, IOException {
         StudentAttendanceDBContext sadb = new StudentAttendanceDBContext();
         StudentService ss = new StudentService(sadb);
+        LessonDBContext ldb = new LessonDBContext();
+        InstructorService is = new InstructorService(ldb);
         int group_id = Integer.parseInt(req.getParameter("groupId"));
         int lessonId = Integer.parseInt(req.getParameter("lessonId"));
         GroupDBContext gdb = new GroupDBContext();
         String groupName = gdb.getGroupName(group_id);
+        String instructorCode = is.getInstructorCode(lessonId);
         ArrayList<StudentAttendance> sas = ss.getListStudentAttendances(lessonId);
         req.setAttribute("sas", sas);
         req.setAttribute("groupId", group_id);
         req.setAttribute("groupName", groupName);
         req.setAttribute("lessonId", lessonId);
-        req.getRequestDispatcher("../view/takeAttendance/takeAttendance.jsp").forward(req, resp);
+        req.setAttribute("instructorCode", instructorCode);
+        
+        req.getRequestDispatcher("../view/editAttendance/editAttendance.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account acc, Set<Feature> features) throws ServletException, IOException {
-        String[] indexs = req.getParameterValues("indexs");
-        int lessonId = Integer.parseInt(req.getParameter("lessonId"));
-        int group_id = Integer.parseInt(req.getParameter("groupId"));
-        LessonDBContext ldb = new LessonDBContext();
-        StudentDBContext sdb = new StudentDBContext();
-        InstructorService is = new InstructorService(ldb);
-        StudentService ss = new StudentService(sdb);
-        for (String index : indexs) {
-            int studentID = Integer.parseInt(req.getParameter("studentid" + index));
-            int status = Integer.parseInt(req.getParameter("status" + index));
-            String comment = req.getParameter("comment" + index);
-            is.updateLessonStatus(1, lessonId);
-            ss.updateStudentAttendance(studentID, lessonId, status, comment);
-        }
-        resp.sendRedirect(req.getContextPath() + "/instructor/edit?lessonId=" + lessonId + "&groupId=" + group_id);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }

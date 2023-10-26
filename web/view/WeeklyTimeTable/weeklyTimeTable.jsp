@@ -30,7 +30,6 @@
                 color: #f37022;
                 padding: 5px;
                 text-align: center;
-
             }
 
 
@@ -86,12 +85,13 @@
             }
 
             /* CSS cho các liên kết bên trong thẻ "menu" */
-            .menu a {
+            .menu {
+                background-color: #f37022;
+                padding: 10px;
                 color: white;
-                text-decoration: none;
-                margin: 0 10px;
+                text-align: center;
+                border-radius: 10px;
                 font-weight: bold;
-                transition: color 0.3s;
             }
 
             th,
@@ -145,9 +145,8 @@
         <div class="menu">
             <% String contextPath = request.getContextPath();%>
             <a href="<%=contextPath + "/home"%>" class="home-button">Home</a>
-            Time weekly table       
+            <span>Time weekly table</span>       
             <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
-
         </div>
         <div id="table-container">
             <table id="timeTable" border="1px">

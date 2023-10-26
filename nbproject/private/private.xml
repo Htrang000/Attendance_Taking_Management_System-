@@ -2,33 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/authentication/LogoutController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/takeAttendance/takeAttendance.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/TakeAttendanceController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/InstructorDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/authentication/LoginController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/LessonDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/StudentAttendance.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/home/home.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/WeeklyTimeTableController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/home/HomeController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/service/student/StudentService.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/StudentDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/authentication/BasedRequiredAuthenticationController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/TimeSlot.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Student.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/WEB-INF/web.xml</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/service/instructor/InstructorService.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/IDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/GroupDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/weeklyTimeTable/test.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Lesson.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/student/WeeklyTimeTableController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/weeklyTimeTable/WeeklyTimeTable.js</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/authentication/login.js</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/util/DateUtil.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/weeklyTimeTable/weeklyTimeTable.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
