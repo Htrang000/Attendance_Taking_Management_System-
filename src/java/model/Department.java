@@ -19,5 +19,5 @@ import lombok.Setter;
 @Setter
 public class Department {
     private int departmentId;
-    private int departmentName;   
+    private String departmentName;   
 }

@@ -1,15 +1,15 @@
 <%-- 
-    Document   : takeAttendance.jsp
-    Created on : Oct 22, 2023, 9:19:33 PM
+    Document   : SelectGroupToView
+    Created on : Oct 29, 2023, 3:48:30 PM
     Author     : Admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>JSP Page</title>
         <style>
             * {
@@ -51,11 +51,10 @@
                 font-weight: bold;
                 transition: color 0.3s;
                 border: none;
-                /* Hiệu ứng chuyển đổi màu chữ khi di chuột qua */
             }
 
             .home-button,
-            .logout-button, .save-button{
+            .logout-button{
                 display: inline-block;
                 padding: 10px 20px;
                 background-color: #28a745;
@@ -63,14 +62,6 @@
                 text-decoration: none;
                 border-radius: 5px;
             }
-
-
-            img {
-                width: 130px;
-                height: 150px;
-
-            }
-            
             table {
                 width: 98%;
                 margin: 1px auto;
@@ -108,6 +99,18 @@
                 width: 20%;
             }
 
+            a {
+                display: inline-block;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                padding: 10px 20px;
+                background-color: #6b90da;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
         </style>
     </head>
     <body>
@@ -115,60 +118,33 @@
         <div class="menu">
             <% String contextPath = request.getContextPath();%>
             <a href="<%=contextPath + "/home"%>" class="home-button">Home</a> 
-            <span>Take attendance</span>  
+            <span>View Attendance Report</span>  
             <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
+        </div>
+        <div>
+            <div>SEMESTER:
+                <c:forEach var="se" items="${requestScope.sems}">
+                    <a style="font-size: small;" href="report?semesterId=${se.semesterId}">${se.semesterName}</a>
+                </c:forEach>
+            </div>
+            <div>DEPARTMENT:
+                <c:forEach var="d" items="${requestScope.depts}">
+                    <a style="font-size: small;" href="report?semesterId=${sessionScope.semesterId}&departmentId=${d.departmentId}">${d.departmentName}</a>
+                </c:forEach>
+            </div>
+            <div>COURSE:
+                <c:forEach var="c" items="${requestScope.courses}">
+                    <a style="font-size: small;" href="report?semesterId=${sessionScope.semesterId}&departmentId=${sessionScope.departmentId}&courseId=${c.courseId}">${c.courseName}</a>
+                </c:forEach>
+            </div>
+            <c:if test="${requestScope.groups!=null and requestScope.groups.size()>0}"> 
+            <div>GROUP:
+                <c:forEach var="g" items="${requestScope.groups}">
+                    <a style="font-size: small;" href="report?groupId=${g.groupId}">${g.groupName}</a>
+                </c:forEach>
+            </div>
+            </c:if>
 
         </div>
-        <form action="takeAttendance" method="post">
-            <input type="hidden" value="${requestScope.groupId}" name="groupId">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Index</th>
-                        <th>Class</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Status</th>
-                        <th>Comment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <input type="hidden" name="lessonId" value="${requestScope.lessonId}">
-                <c:forEach var="s" items="${sas}" varStatus="loop">
-                    <tr>
-                        <td>${loop.index + 1}</td>
-                    <input type="hidden" value="${loop.index}" readonly name="indexs">
-                    <input type="hidden" value="${s.student.studentId}" readonly name="studentid${loop.index}">
-                    <td>${groupName}</td>
-                    <td>${s.student.studentCode}</td>
-                    <td>${s.student.name}</td>
-                    <td><img src="${s.student.img}" alt=""></td>
-                    <td class="status">
-                        <label>
-                            <input type="radio" name="status${loop.index}" required value="1"
-                                ${s.status eq 1?"checked":""}  
-                                   > Present
-                        </label>
-                        <label>
-                            <input type="radio" name="status${loop.index}" required value="0"
-                                  ${s.status ne 1?"checked":""}   > Absent
-                        </label>
-                    </td>
-                    <td>
-                        <textarea name="comment${loop.index}" cols="30" rows="4" >${s.comment}</textarea>
-                    </td>
-                    </tr>
-                </c:forEach>
-
-                </tbody>
-            </table>
-
-            <div class="menu">
-                <button type="submit" class="save-button">Save</button>
-            </div>
-        </form>
-
-
     </body>
 </html>

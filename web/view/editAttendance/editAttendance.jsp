@@ -132,7 +132,6 @@
         <a href="<%=contextPath + "/logout"%>" class="logout-button">Logout</a>
 
     </div>
-    <form action="takeAttendance" method="post">
         <input type="hidden" value="${requestScope.groupId}" name="groupId">
         <table>
             <thead>
@@ -175,7 +174,6 @@
             <span style="margin-right: 15px;"><button type="button" class="save-button" onclick="save()">Save</button></span>
             <span><button type="button" class="save-button" onclick="edit(${requestScope.groupId}, ${requestScope.lessonId})">Edit</button></span>
         </div>
-    </form>
     <script src="../js/editAttendance/editAttendance.js"></script>
 </body>
 </html>

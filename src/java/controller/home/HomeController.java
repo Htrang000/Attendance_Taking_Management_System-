@@ -29,6 +29,8 @@ public class HomeController extends BasedRequiredAuthenticationController{
         else{
             resp.sendRedirect(req.getContextPath()+"/student/scheduleOfWeek");
         }
+    }else if(action.equalsIgnoreCase("report")){
+        resp.sendRedirect(req.getContextPath()+"/instructor/report");
     }
     
     }

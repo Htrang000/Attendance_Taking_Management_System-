@@ -32,6 +32,10 @@
         <servlet-name>EditAttendaceController</servlet-name>
         <servlet-class>controller.instructor.EditAttendaceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceReport</servlet-name>
+        <servlet-class>controller.instructor.ViewAttendanceReport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -62,7 +66,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditAttendaceController</servlet-name>
-        <url-pattern>/instructor/edit</url-pattern>
+        <url-pattern>/instructor/editAttendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceReport</servlet-name>
+        <url-pattern>/instructor/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
