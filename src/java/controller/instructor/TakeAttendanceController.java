@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import model.Account;
 import model.Feature;
-import model.Student;
 import model.StudentAttendance;
 import service.instructor.InstructorService;
 import service.student.StudentService;
@@ -60,7 +59,7 @@ public class TakeAttendanceController extends BasedAuthorizatedController {
             is.updateLessonStatus(1, lessonId);
             ss.updateStudentAttendance(studentID, lessonId, status, comment);
         }
-        resp.sendRedirect(req.getContextPath() + "/instructor/edit?lessonId=" + lessonId + "&groupId=" + group_id);
+        resp.sendRedirect(req.getContextPath() + "/instructor/editAttendance?lessonId=" + lessonId + "&groupId=" + group_id);
     }
 
 }

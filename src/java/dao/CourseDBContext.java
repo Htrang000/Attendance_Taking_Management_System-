@@ -53,7 +53,7 @@ public class CourseDBContext extends DBContext implements IDBContext<Course> {
             stm.setInt(1, deptID);
             stm.setInt(2, semID);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Course c = new Course();
                 c.setCourseId(rs.getInt("Course_id"));
                 c.setCourseName(rs.getString("Course_name"));
@@ -64,10 +64,26 @@ public class CourseDBContext extends DBContext implements IDBContext<Course> {
         }
         return courses;
     }
-    
+
+    public String getCourseName(int gid) {
+        String sql = "SELECT c.Course_name FROM [Group] g JOIN Course c ON g.Course_id = c.Course_id\n"
+                + "WHERE g.Group_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, gid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                String gname = rs.getString("Course_name");
+                return gname;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         CourseDBContext cdb = new CourseDBContext();
-        ArrayList<Course> courses = cdb.getListCourse(1, 2);
-        System.out.println(courses.size());
+        System.out.println(cdb.getCourseName(11));
     }
 }

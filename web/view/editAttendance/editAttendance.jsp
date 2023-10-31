@@ -138,10 +138,10 @@
                 <tr>
                     <th>Index</th>
                     <th>Class</th>
-                    <th>Code</th>
-                    <th>Name</th>
+                    <th>Student Code</th>
+                    <th>Student Name</th>
                     <th>Image</th>
-                    <th>Status</th>
+                    <th>Status Attendance</th>
                     <th>Instructor</th>
                     <th>Time</th>
                     <th>Comment</th>

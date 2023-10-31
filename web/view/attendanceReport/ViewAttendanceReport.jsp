@@ -111,6 +111,27 @@
                 transition: background-color 0.3s;
             }
 
+            img {
+                width: 130px;
+                height: 150px;
+
+            }
+
+            .statistics {
+                text-align: center;
+                margin: 20px auto;
+                padding: 10px;
+                background-color: white;
+                color: black;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                font-weight: bold;
+                font-size: 17px;
+                /* Đổi kích thước font chữ */
+                max-width: 500px;
+                /* Giới hạn chiều rộng của phần tử */
+            }
+
         </style>
     </head>
     <body>
@@ -138,13 +159,53 @@
                 </c:forEach>
             </div>
             <c:if test="${requestScope.groups!=null and requestScope.groups.size()>0}"> 
-            <div>GROUP:
-                <c:forEach var="g" items="${requestScope.groups}">
-                    <a style="font-size: small;" href="report?groupId=${g.groupId}">${g.groupName}</a>
-                </c:forEach>
-            </div>
+                <div>GROUP:
+                    <c:forEach var="g" items="${requestScope.groups}">
+                        <a style="font-size: small;" href="report?groupId=${g.groupId}">${g.groupName}</a>
+                    </c:forEach>
+                </div>
             </c:if>
-
         </div>
+
+        <c:if test="${requestScope.students!=null and requestScope.students.size()>0}">
+            <div class="statistics">
+                Course: ${requestScope.courseName} <br>
+                Instructor: ${requestScope.iName} <br>
+                Class Name: ${requestScope.groupName} <br>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Student Code</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Image</th>
+                        <th>Percentage Attendance</th>
+                            <c:forEach begin="1" end="${requestScope.saListSize}" varStatus="loop">
+                            <th>Slot ${loop.index}</th>
+                            </c:forEach>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="sa" items="${requestScope.mapping}" varStatus="loop"> 
+                        <tr >                       
+                            <td>${loop.index + 1}</td>
+                            <td>${sa.key.studentCode}</td>
+                            <td>${sa.key.name}</td>
+                            <td>${requestScope.groupName}</td>
+                            <td><img src="${sa.key.img}" alt="student image"></td>
+                            <td id="percentage" style="color: ${sa.key.percentageAttendance>20?"red" : sa.key.percentageAttendance>=15 and sa.key.percentageAttendance<=20?"orange":""};" ><b>${sa.key.percentageAttendance}%</b></td>
+                                <c:forEach var="a" items="${sa.value}" >
+                                <td style="color: ${a.status eq 1?"green": a.status eq 0 ?"red":""};">
+                                    ${a.status eq 1 ? "present" : a.status eq 0 ? "absent" : "not yet"}
+                                </td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+        </c:if>
     </body>
 </html>

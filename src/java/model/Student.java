@@ -31,4 +31,5 @@ public class Student {
    private String address;
    private Account account;
    private Set<Group> groups;
+   private int percentageAttendance;
 }

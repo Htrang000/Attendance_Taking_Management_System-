@@ -44,8 +44,6 @@ public class StudentService {
     }
     
     
-    
-
     public StudentService(StudentDBContext stdb, LessonDBContext ldb) {
         this.stdb = stdb;
         this.ldb = ldb;
@@ -78,6 +76,10 @@ public class StudentService {
     
     public ArrayList<StudentAttendance> getListStudentAttendances(int lid){
         return sadb.getListByLesson(lid);        
+    }
+    
+    public ArrayList<StudentAttendance> getListByGroupAndStudent(int sid, int gid){
+        return sadb.getListByGroupAndStudent(sid, gid);
     }
     
     
