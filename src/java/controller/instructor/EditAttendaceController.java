@@ -39,7 +39,7 @@ public class EditAttendaceController extends BasedAuthorizatedController{
         GroupDBContext gdb = new GroupDBContext();
         String groupName = gdb.getGroupName(group_id);
         String instructorCode = is.getInstructorCode(lessonId);
-        ArrayList<StudentAttendance> sas = ss.getListStudentAttendances(lessonId);
+        ArrayList<StudentAttendance> sas = ss.getListByLesson(lessonId);
         req.setAttribute("sas", sas);
         req.setAttribute("groupId", group_id);
         req.setAttribute("groupName", groupName);

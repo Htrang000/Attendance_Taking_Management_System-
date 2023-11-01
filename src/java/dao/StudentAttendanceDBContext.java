@@ -9,10 +9,13 @@ import model.StudentAttendance;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Lesson;
 import model.Student;
+import service.student.StudentService;
 
 /**
  *
@@ -77,7 +80,7 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
 
     public ArrayList<StudentAttendance> getListByGroupAndStudent(int sid, int gid) {
         ArrayList<StudentAttendance> list = new ArrayList<>();
-        String sql = "SELECT s.Student_code, s.First_name + s.Last_name AS [Name],\n"
+        String sql = "SELECT s.Student_code, s.First_name + ' ' + s.Last_name AS [Name],\n"
                 + "s.[Image], sa.[Status], l.Session_no  FROM Student s \n"
                 + "JOIN Student_attendance sa ON sa.Student_id = s.Student_id\n"
                 + "JOIN Lesson l ON sa.Lesson_id = l.Lesson_id\n"
@@ -87,7 +90,7 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
             stm.setInt(1, sid);
             stm.setInt(2, gid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 StudentAttendance sa = new StudentAttendance();
                 Student s = new Student();
                 s.setStudentCode(rs.getString("Student_code"));
@@ -99,16 +102,32 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
                 l.setSessionNo(rs.getInt("Session_no"));
                 sa.setLesson(l);
                 list.add(sa);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentAttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-    
-    public static void main(String[] args) {
-        StudentAttendanceDBContext sadb = new StudentAttendanceDBContext();
-        System.out.println(sadb.getListByGroupAndStudent(1, 11).size());
+
+    public Map<Student, ArrayList<StudentAttendance>> mapping(ArrayList<Student> students, ArrayList<StudentAttendance> saList, int groupId) {
+        Map<Student, ArrayList<StudentAttendance>> mapping = new LinkedHashMap<>();
+        for (Student student : students) {
+            ArrayList<StudentAttendance> sa =  getListByGroupAndStudent(student.getStudentId(), groupId);
+            int count = 0;
+            for (StudentAttendance studentAttendance : sa) {
+                if (studentAttendance.getStatus() == 0) {
+                    count++;
+                }
+            }
+            student.setPercentageAttendance(count * 100 / sa.size());
+            mapping.put(student, sa);
+            saList.addAll(sa);
+
+        }
+        return mapping;
     }
+    
+    
+    
 }

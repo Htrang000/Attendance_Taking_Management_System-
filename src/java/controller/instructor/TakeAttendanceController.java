@@ -35,7 +35,7 @@ public class TakeAttendanceController extends BasedAuthorizatedController {
         int lessonId = Integer.parseInt(req.getParameter("lessonId"));
         GroupDBContext gdb = new GroupDBContext();
         String groupName = gdb.getGroupName(group_id);
-        ArrayList<StudentAttendance> sas = ss.getListStudentAttendances(lessonId);
+        ArrayList<StudentAttendance> sas = ss.getListByLesson(lessonId);
         req.setAttribute("sas", sas);
         req.setAttribute("groupId", group_id);
         req.setAttribute("groupName", groupName);

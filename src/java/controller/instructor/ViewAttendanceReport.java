@@ -77,20 +77,22 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
             StudentDBContext stdb = new StudentDBContext();
             StudentService ss = new StudentService(stdb, null, sadb);
             ArrayList<Student> students = ss.getListStudentByGroupId(groupId);
-            Map<Student, ArrayList<StudentAttendance>> mapping = new LinkedHashMap<>();
             ArrayList<StudentAttendance> saList = new ArrayList<>();
-            for (Student student : students) {
-                saList = ss.getListByGroupAndStudent(student.getStudentId(), groupId);
-                int count = 0;
-                for (StudentAttendance studentAttendance : saList) {
-                    if(studentAttendance.getStatus()==0){
-                        count++;
-                    }
-                }
-                student.setPercentageAttendance(count *100 / saList.size() );
-                mapping.put(student, saList);
-
-            }
+            Map<Student, ArrayList<StudentAttendance>> mapping = ss.mapping(students, saList, groupId);
+            
+//            for (Student student : students) {
+//                saList = ss.getListByGroupAndStudent(student.getStudentId(), groupId);
+//                int count = 0;
+//                for (StudentAttendance studentAttendance : saList) {
+//                    if(studentAttendance.getStatus()==0){
+//                        count++;
+//                    }
+//                }
+//                student.setPercentageAttendance(count *100 / saList.size() );
+//                mapping.put(student, saList);
+//
+//            }
+            
 
             req.setAttribute("groupName", gdb.getGroupName(groupId));
             req.setAttribute("saListSize", saList.size());

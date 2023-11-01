@@ -21,8 +21,7 @@ import lombok.Setter;
 public class Instructor {
     private int instructorId;
     private String instructorCode;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String img;
     private Date dob;
     private boolean gender;

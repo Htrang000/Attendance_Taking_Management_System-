@@ -31,6 +31,8 @@ public class HomeController extends BasedRequiredAuthenticationController{
         }
     }else if(action.equalsIgnoreCase("report")){
         resp.sendRedirect(req.getContextPath()+"/instructor/report");
+    }else if(action.equalsIgnoreCase("viewInfor")){
+        resp.sendRedirect(req.getContextPath()+"/instructor/viewInfor");
     }
     
     }

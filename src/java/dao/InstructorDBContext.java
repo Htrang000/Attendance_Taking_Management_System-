@@ -51,7 +51,6 @@ public class InstructorDBContext extends DBContext implements IDBContext<Instruc
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
     public Instructor getByAccount(Account acc) {
         String sql = "SELECT i.Instructor_id, i.Instructor_code\n"
                 + "  FROM [Account] a join [Instructor] i\n"
@@ -73,13 +72,38 @@ public class InstructorDBContext extends DBContext implements IDBContext<Instruc
         }
         return null;
     }
-    
+
+    public Instructor getInfInstructor(Account acc) {
+        String sql = "SELECT i.Instructor_code, i.First_name + ' ' + i.Last_name as [Name], i.[Image],\n"
+                + "i.Gender,i.Dob,i.Phone, i.Email FROM Account a JOIN Instructor i\n"
+                + "ON a.Account_id = i.Account_id WHERE a.Account_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, acc.getAccountID());
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Instructor i = new Instructor();
+                i.setInstructorCode(rs.getString("Instructor_code"));
+                i.setName(rs.getString("Name"));
+                i.setImg(rs.getString("Image"));
+                i.setGender(rs.getBoolean("Gender"));
+                i.setPhone(rs.getString("Phone"));
+                i.setEmail(rs.getString("Email"));
+                i.setDob(rs.getDate("Dob"));
+                return i;
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstructorDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         InstructorDBContext idbc = new InstructorDBContext();
         Account a = new Account();
         a.setAccountID(1);
-        System.out.println(idbc.getByAccount(a).getInstructorId());
+        System.out.println(idbc.getInfInstructor(a).getInstructorCode());
     }
-
 
 }
