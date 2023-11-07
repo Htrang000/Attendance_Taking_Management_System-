@@ -13,8 +13,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Instructor;
 import model.Lesson;
 import model.Student;
+import model.TimeSlot;
 import service.student.StudentService;
 
 /**
@@ -81,9 +83,9 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
     public ArrayList<StudentAttendance> getListByGroupAndStudent(int sid, int gid) {
         ArrayList<StudentAttendance> list = new ArrayList<>();
         String sql = "SELECT s.Student_code, s.First_name + ' ' + s.Last_name AS [Name],\n"
-                + "s.[Image], sa.[Status], l.Session_no  FROM Student s \n"
+                + "s.[Image], sa.[Status], l.Session_no, l.[Date], l.Slot_id, i.Instructor_code FROM Student s \n"
                 + "JOIN Student_attendance sa ON sa.Student_id = s.Student_id\n"
-                + "JOIN Lesson l ON sa.Lesson_id = l.Lesson_id\n"
+                + "JOIN Lesson l ON sa.Lesson_id = l.Lesson_id JOIN Instructor i ON l.Instructor_id = i.Instructor_id\n"
                 + "WHERE s.Student_id = ? AND l.Group_id = ?";
         try {
             PreparedStatement stm = c.prepareStatement(sql);
@@ -100,9 +102,15 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
                 sa.setStatus(rs.getInt("Status"));
                 Lesson l = new Lesson();
                 l.setSessionNo(rs.getInt("Session_no"));
+                l.setDate(rs.getDate("Date"));
+                TimeSlot timeSlot = new TimeSlot();
+                timeSlot.setSlotId(rs.getInt("Slot_id"));
+                l.setSlot(timeSlot);
+                Instructor i = new Instructor();
+                i.setInstructorCode(rs.getString("Instructor_code"));
                 sa.setLesson(l);
+                l.setInstructor(i);
                 list.add(sa);
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentAttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,8 +120,9 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
 
     public Map<Student, ArrayList<StudentAttendance>> mapping(ArrayList<Student> students, ArrayList<StudentAttendance> saList, int groupId) {
         Map<Student, ArrayList<StudentAttendance>> mapping = new LinkedHashMap<>();
+        ArrayList<StudentAttendance> sa = new ArrayList<>();
         for (Student student : students) {
-            ArrayList<StudentAttendance> sa =  getListByGroupAndStudent(student.getStudentId(), groupId);
+            sa = getListByGroupAndStudent(student.getStudentId(), groupId);
             int count = 0;
             for (StudentAttendance studentAttendance : sa) {
                 if (studentAttendance.getStatus() == 0) {
@@ -122,12 +131,9 @@ public class StudentAttendanceDBContext extends DBContext implements IDBContext<
             }
             student.setPercentageAttendance(count * 100 / sa.size());
             mapping.put(student, sa);
-            saList.addAll(sa);
-
         }
+        saList.addAll(sa);
         return mapping;
     }
-    
-    
-    
+
 }

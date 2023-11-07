@@ -4,7 +4,6 @@
  */
 package dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,13 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
-import model.Course;
-import model.Group;
 import model.Instructor;
-import model.Lesson;
-import model.Room;
-import model.Student;
-import model.TimeSlot;
+
 
 /**
  *
@@ -98,6 +92,8 @@ public class InstructorDBContext extends DBContext implements IDBContext<Instruc
         }
         return null;
     }
+    
+    
 
     public static void main(String[] args) {
         InstructorDBContext idbc = new InstructorDBContext();

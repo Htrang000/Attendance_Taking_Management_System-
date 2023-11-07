@@ -15,7 +15,7 @@
         <title>Document</title>
         <style>
             * {
-                margin: 10px;
+                margin: 5px;
             }
             /* Thêm một font chữ khác */
             body {
@@ -200,10 +200,9 @@
                     <c:forEach items="${requestScope.dates}" var="d">
                         <td>
                             <c:forEach items="${requestScope.listLesson}" var="l">
-                                <c:if test="${l.date eq d and l.slot.slotId eq slot.index}">
+                                <c:if test="${l.date eq d and (l.slot.slotId eq slot.index or l.slot.slotId eq slot.index+5) }">
                                     <div>
-                                        ${l.group.course.courseName} - ${l.group.groupId}
-                                        - <a href="<%=contextPath + "/instructor/takeAttendance?groupId="%>${l.group.groupId}&lessonId=${l.lessonId}">${l.group.groupName}</a><br>
+                                        ${l.group.course.courseName   } -<a href="<%=contextPath + "/instructor/takeAttendance?groupId="%>${l.group.groupId}&lessonId=${l.lessonId}">${l.group.groupName}</a><br>
                                         at ${l.room.roomName} <br>
                                         <span style="color: ${l.attendanceStatus eq 1 ? 'green' : 'red'};">
                                             ${l.attendanceStatus eq 1 ? 'Present' : (l.attendanceStatus eq 2 ? 'Absent' : 'Not given')}

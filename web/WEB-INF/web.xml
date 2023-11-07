@@ -40,6 +40,14 @@
         <servlet-name>ViewInformationController</servlet-name>
         <servlet-class>controller.instructor.ViewInformationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewInformationControllerStudent</servlet-name>
+        <servlet-class>controller.student.ViewInformationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceReportStudent</servlet-name>
+        <servlet-class>controller.student.ViewAttendanceReport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>ViewInformationController</servlet-name>
         <url-pattern>/instructor/viewInfor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewInformationControllerStudent</servlet-name>
+        <url-pattern>/student/viewInfor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceReportStudent</servlet-name>
+        <url-pattern>/student/report</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

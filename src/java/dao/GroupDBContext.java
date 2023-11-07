@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Course;
 import model.Group;
 
 /**
@@ -79,7 +80,7 @@ public class GroupDBContext extends DBContext implements IDBContext<Group> {
         return groups;
     }
 
-    public ArrayList<Group> getListGroup(int courseID, int instructorID) {
+    public ArrayList<Group> getListGroupInstructor(int courseID, int instructorID) {
         ArrayList<Group> groups = new ArrayList<>();
         String sql = "SELECT DISTINCT g.Group_id, g.Group_name FROM Instructor i JOIN Lesson l"
                 + " ON i.Instructor_id = l.Instructor_id\n"
@@ -91,10 +92,10 @@ public class GroupDBContext extends DBContext implements IDBContext<Group> {
             stm.setInt(2, courseID);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Group c = new Group();
-                c.setGroupId(rs.getInt("Group_id"));
-                c.setGroupName(rs.getString("Group_name"));
-                groups.add(c);
+                Group g = new Group();
+                g.setGroupId(rs.getInt("Group_id"));
+                g.setGroupName(rs.getString("Group_name"));
+                groups.add(g);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,9 +103,37 @@ public class GroupDBContext extends DBContext implements IDBContext<Group> {
         return groups;
     }
 
+    public ArrayList<Group> getListGroupStudent(int semID, int studentID) {
+        ArrayList<Group> groups = new ArrayList<>();
+        String sql = "SELECT g.Group_id, g.Group_name, c.Course_id, c.Course_name "
+                + "FROM Student s JOIN Student_group st ON s.Student_id = st.Student_id\n"
+                + "JOIN [Group] g ON g.Group_id = st.Group_id JOIN Course c ON c.Course_id = g.Course_id\n"
+                + "WHERE Sem_id = ? AND s.Student_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, semID);
+            stm.setInt(2, studentID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                g.setGroupId(rs.getInt(1));
+                g.setGroupName(rs.getString(2));
+                Course c = new Course();
+                c.setCourseId(rs.getInt(3));
+                c.setCourseName(rs.getString(4));
+                g.setCourse(c);
+                groups.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+
+    }
+
     public static void main(String[] args) {
         GroupDBContext gdb = new GroupDBContext();
-        ArrayList<Group> groups = gdb.getListGroup(43,1);
+        ArrayList<Group> groups = gdb.getListGroupStudent(4, 3);
         System.out.println(groups.size());
     }
 

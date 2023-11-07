@@ -32,7 +32,6 @@
                 border: 1px solid #dddddd;
             }
 
-            /* CSS cho các liên kết bên trong thẻ "menu" */
             .menu {
                 background-color: #f37022;
                 padding: 10px;
@@ -42,12 +41,10 @@
                 margin-bottom: 20px;
                 font-weight: bold;
             }
-            /* CSS cho các liên kết bên trong thẻ "menu" */
             .menu button {
                 color: white;
                 text-decoration: none;
                 margin: 0 10px;
-                /* Tạo khoảng cách giữa các liên kết */
                 font-weight: bold;
                 transition: color 0.3s;
                 border: none;
@@ -71,7 +68,6 @@
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             }
 
-            /* CSS cho header của bảng */
             th {
                 background-color: #6b90da;
                 color: white;
@@ -82,7 +78,6 @@
             }
 
 
-            /* CSS cho các ô dữ liệu */
             td {
                 padding: 5px;
                 border-bottom: 1px solid white;
@@ -91,7 +86,6 @@
                 text-align: center;
             }
 
-            /* CSS cho các hàng chẵn */
             tr:nth-child(even) {
                 background-color: rgb(107, 144, 218, 0.2);
             }
@@ -127,9 +121,7 @@
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
                 font-weight: bold;
                 font-size: 17px;
-                /* Đổi kích thước font chữ */
                 max-width: 500px;
-                /* Giới hạn chiều rộng của phần tử */
             }
 
         </style>

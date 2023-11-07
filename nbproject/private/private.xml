@@ -3,19 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/EditAttendaceController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/service/instructor/InstructorService.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/InstructorDBContext.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/ViewStudentAttendanceReport.jsp</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/WEB-INF/web.xml</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/editAttendance/editAttendance.js</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/home/HomeController.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/ViewGroupAttendanceReport.jsp</file>
             <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/TakeAttendanceController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/LessonDBContext.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/authentication/login.js</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/student/ViewAttendanceReport.java</file>
             <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/ViewAttendanceReport.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/ViewAttendanceReport.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/StudentAttendance.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/WeeklyTimeTableController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Instructor.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/StudentAttendanceDBContext.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/service/student/StudentService.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Student.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/weeklyTimeTable/weeklyTimeTable.jsp</file>
         </group>
     </open-files>
 </project-private>

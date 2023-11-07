@@ -121,18 +121,45 @@ public class StudentDBContext extends DBContext implements IDBContext<Student> {
             stm.setInt(1, studentId);
             stm.setInt(2, lessonId);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 StudentAttendance stuAtt = new StudentAttendance();
                 stuAtt.setStatus(rs.getInt("Status"));
                 stuAtt.setRecordTime(rs.getTime("Recordtime"));
                 stuAtt.setRecordDate(rs.getDate("Recordday"));
                 stuAtt.setComment(rs.getString("comment"));
-                list.add(stuAtt);              
+                list.add(stuAtt);
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
         return list;
+    }
+
+    public Student getInfStudent(Account acc) {
+        String sql = "SELECT s.Student_code, s.First_name + ' ' + s.Last_name as [Name], s.[Image],\n"
+                + "s.Gender, s.Dob, s.Phone, s.Email\n"
+                + "FROM Account a JOIN Student s ON a.Account_id = s.Account_id\n"
+                + "WHERE a.Account_id = ?";
+        try {
+            PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, acc.getAccountID());
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Student s = new Student();
+                s.setStudentCode(rs.getString("Student_code"));
+                s.setName(rs.getString("Name"));
+                s.setImg(rs.getString("Image"));
+                s.setGender(rs.getBoolean("Gender"));
+                s.setPhone(rs.getString("Phone"));
+                s.setEmail(rs.getString("Email"));
+                s.setDob(rs.getDate("Dob"));
+                return s;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InstructorDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static void main(String[] args) {

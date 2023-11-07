@@ -64,7 +64,7 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
         InstructorService is = new InstructorService(idb);
 
         //ArrayList<Group> groups = gdb.getListGroup(courseID);
-        ArrayList<Group> groups = gdb.getListGroup(courseID, is.getInstructorByAcc(acc).getInstructorId());
+        ArrayList<Group> groups = gdb.getListGroupInstructor(courseID, is.getInstructorByAcc(acc).getInstructorId());
         req.setAttribute("sems", sems);
         req.setAttribute("depts", depts);
         req.setAttribute("courses", courses);
@@ -80,20 +80,6 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
             ArrayList<StudentAttendance> saList = new ArrayList<>();
             Map<Student, ArrayList<StudentAttendance>> mapping = ss.mapping(students, saList, groupId);
             
-//            for (Student student : students) {
-//                saList = ss.getListByGroupAndStudent(student.getStudentId(), groupId);
-//                int count = 0;
-//                for (StudentAttendance studentAttendance : saList) {
-//                    if(studentAttendance.getStatus()==0){
-//                        count++;
-//                    }
-//                }
-//                student.setPercentageAttendance(count *100 / saList.size() );
-//                mapping.put(student, saList);
-//
-//            }
-            
-
             req.setAttribute("groupName", gdb.getGroupName(groupId));
             req.setAttribute("saListSize", saList.size());
             req.setAttribute("students", students);
@@ -101,7 +87,7 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
             req.setAttribute("courseName", cdb.getCourseName(Integer.parseInt(req.getParameter("groupId"))));
             req.setAttribute("iName", idb.getByAccount(acc).getInstructorCode());
         }
-        req.getRequestDispatcher("../view/attendanceReport/ViewAttendanceReport.jsp").forward(req, resp);
+        req.getRequestDispatcher("../view/attendanceReport/ViewGroupAttendanceReport.jsp").forward(req, resp);
     }
 
     @Override
