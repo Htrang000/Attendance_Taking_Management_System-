@@ -53,7 +53,7 @@
             }
 
             .fixed-column {
-                min-width: 150px; /* Điều chỉnh kích thước theo ý muốn */
+                min-width: 141px; /* Điều chỉnh kích thước theo ý muốn */
             }
 
             /* CSS cho các hàng chẵn */
@@ -120,18 +120,6 @@
             #timeTable {
                 width: auto;
                 border-collapse: collapse;
-            }
-
-            /* Cố định kích thước của 7 cột đầu tiên */
-            #timeTable th:nth-child(-n+7),
-            #timeTable td:nth-child(-n+7) {
-                width: 150px; /* Điều chỉnh kích thước theo ý muốn */
-            }
-
-            /* Thanh cuộn ngang cho các cột còn lại */
-            #timeTable th:nth-child(n+8),
-            #timeTable td:nth-child(n+8) {
-                min-width: 150px; /* Điều chỉnh kích thước theo ý muốn */
             }
 
 

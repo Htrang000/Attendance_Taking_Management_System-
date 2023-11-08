@@ -52,6 +52,8 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
             ss = new StudentService(stdb, null, sadb);
             ArrayList<StudentAttendance> saList = ss.getListByGroupAndStudent(ss.getStudentByAcc(acc).getStudentId(), groupId);
             
+            int percent = ss.getAbsentPercentage(saList);
+            req.setAttribute("percent", percent);
             req.setAttribute("saList", saList);
             String iName = saList.get(0).getLesson().getInstructor().getInstructorCode();
             req.setAttribute("iName", iName);
@@ -59,7 +61,8 @@ public class ViewAttendanceReport extends BasedAuthorizatedController {
             req.setAttribute("courseName", cdb.getCourseName(Integer.parseInt(req.getParameter("groupId"))));
             req.setAttribute("groupName", gdb.getGroupName(groupId));
         }
-        req.getRequestDispatcher("../view/attendanceReport/ViewStudentAttendanceReport.jsp").forward(req, resp);
+       // req.getRequestDispatcher("../view/attendanceReport/ViewStudentAttendanceReport.jsp").forward(req, resp);
+        req.getRequestDispatcher("../view/attendanceReport/test.jsp").forward(req, resp);
 
     }
 

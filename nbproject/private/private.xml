@@ -4,15 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/ViewStudentAttendanceReport.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/WEB-INF/web.xml</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/editAttendance/editAttendance.js</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/home/HomeController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/ViewGroupAttendanceReport.jsp</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/TakeAttendanceController.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/js/authentication/login.js</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Instructor.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/Lesson.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/attendanceReport/test.jsp</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/dao/AccountDBContext.java</file>
             <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/student/ViewAttendanceReport.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/instructor/ViewAttendanceReport.java</file>
-            <file>file:/D:/KyIV/PRJ/Assignment/Assign/web/view/weeklyTimeTable/weeklyTimeTable.jsp</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/model/TimeSlot.java</file>
+            <file>file:/D:/KyIV/PRJ/Assignment/Assign/src/java/controller/authentication/BasedAuthorizatedController.java</file>
         </group>
     </open-files>
 </project-private>

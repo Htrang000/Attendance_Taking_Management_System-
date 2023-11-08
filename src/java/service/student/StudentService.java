@@ -80,6 +80,17 @@ public class StudentService {
     public ArrayList<StudentAttendance> getListByGroupAndStudent(int sid, int gid) {
         return sadb.getListByGroupAndStudent(sid, gid);
     }
+    
+    public int getAbsentPercentage(ArrayList<StudentAttendance> saList){
+        int absent = 0;
+        for (StudentAttendance studentAttendance : saList) {
+            if(studentAttendance.getStatus()==0){
+                absent++;
+            }
+        }
+        int percent = absent*100/saList.size();
+        return percent;
+    }
 
     public Map<Student, ArrayList<StudentAttendance>> mapping(ArrayList<Student> students, ArrayList<StudentAttendance> saList, int groupId) {
         return sadb.mapping(students, saList, groupId);
